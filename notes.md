@@ -41,4 +41,7 @@
 - text-muted-foregorund: sempre temos a opção default x foreground
   das fontes, isso serve para caso vc sempre prefira a cor que da 
   contraste com o fundo (foreground) ao inves da default;
-- 
+- input e label: `npx shadcn-ui@latest add input label`
+- Para mudar as cores conforme o tema desejado, vá:
+  - shadcn/ui > themes > seleciona o tema > copia > substitui a primeira
+    @layerbase do global.css pela layerbase copiada, e pronto!
