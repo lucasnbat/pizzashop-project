@@ -36,4 +36,9 @@
       - cola o module.exports = {plugins: ['prettier-plugin-tailwindcss']}
 - `npm i react-helmet-async`
   - Usamos isso (configuração no App.tsx) para fazer cabeçalho otimizado;
+- foreground: contrario de background. use isso em componentes que
+  você quer que respondam com cores inversas a cor do fundo;
+- text-muted-foregorund: sempre temos a opção default x foreground
+  das fontes, isso serve para caso vc sempre prefira a cor que da 
+  contraste com o fundo (foreground) ao inves da default;
 - 
