@@ -34,3 +34,8 @@
   - `npm i -D prettier-plugin-tailwindcss`
     - depois cria prettier.config.js
       - cola o module.exports = {plugins: ['prettier-plugin-tailwindcss']}
+
+# Configurando React-router-dom
+
+- npm install react-router-dom # always need this!
+- npm install localforage match-sorter sort-by # only for this tutorial.
