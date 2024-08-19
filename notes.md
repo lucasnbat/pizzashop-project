@@ -34,3 +34,6 @@
   - `npm i -D prettier-plugin-tailwindcss`
     - depois cria prettier.config.js
       - cola o module.exports = {plugins: ['prettier-plugin-tailwindcss']}
+- `npm i react-helmet-async`
+  - Usamos isso (configuração no App.tsx) para fazer cabeçalho otimizado;
+- 
