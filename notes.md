@@ -29,4 +29,8 @@
 # Início dos trabalhos
 
 - `npx shadcn-ui@latest add button`
-- ****
+- Configurando eslint e prettier:
+  - `npm i eslint @rocketseat/eslint-config -D`
+  - `npm i -D prettier-plugin-tailwindcss`
+    - depois cria prettier.config.js
+      - cola o module.exports = {plugins: ['prettier-plugin-tailwindcss']}
