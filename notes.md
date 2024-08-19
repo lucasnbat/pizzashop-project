@@ -45,3 +45,7 @@
 - Para mudar as cores conforme o tema desejado, vá:
   - shadcn/ui > themes > seleciona o tema > copia > substitui a primeira
     @layerbase do global.css pela layerbase copiada, e pronto!
+
+## Trabalhando com formulários e validações destes
+
+- `npm i react-hook-form zod @hookform/resolvers`
