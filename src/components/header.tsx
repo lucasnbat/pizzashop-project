@@ -1,5 +1,5 @@
 import { Separator } from "@radix-ui/react-separator";
-import { Home, Pizza, UtensilsCrossed } from "lucide-react";
+import { Clock, FileText, Home, PackageOpen, UtensilsCrossed } from "lucide-react";
 import { NavLink } from "./nav-link";
 
 export interface HeaderProps {}
@@ -8,7 +8,7 @@ export function Header(props: HeaderProps) {
   return (
     <div className="border-b">
       <div className="flex h-16 items-center gap-6 px-6">
-        <Pizza className="h-6 w-6" />
+        <Clock className="h-6 w-6" />
 
         <Separator orientation="vertical" className="h-6" />
 
@@ -18,8 +18,8 @@ export function Header(props: HeaderProps) {
                 Início
             </NavLink>
             <NavLink to="/orders">
-                <UtensilsCrossed className="h-4 w-4" />
-                Pedidos
+                <FileText className="h-4 w-4" />
+                Folha
             </NavLink>
         </nav>
       </div>

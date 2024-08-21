@@ -1,4 +1,4 @@
-import { Pizza } from 'lucide-react'
+import { Clock } from 'lucide-react'
 import { Outlet } from 'react-router-dom'
 
 export function AuthLayout() {
@@ -6,11 +6,11 @@ export function AuthLayout() {
     <div className="grid min-h-screen grid-cols-2">
       <div className="flex h-full flex-col justify-between border-r border-foreground/5 bg-muted p-10 text-muted-foreground">
         <div className="flex items-center gap-3 text-lg text-foreground">
-          <Pizza className="w-t h-5" />
-          <span className="font-semibold">pizza.shop</span>
+          <Clock className="w-t h-5" />
+          <span className="font-semibold">clock.control</span>
         </div>
         <footer className="text-sm">
-          Painel do parceiro &copy; pizza.shop - {new Date().getFullYear()}
+          Painel do parceiro &copy; clock.control - {new Date().getFullYear()}
         </footer>
       </div>
       <div className="item-center flex flex-col justify-center relative">

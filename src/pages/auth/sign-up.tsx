@@ -10,7 +10,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 // schema
 const signUpForm = z.object({
-  restaurantName: z.string(),
+  cooperativeName: z.string(),
   managerName: z.string(),
   phone: z.number(),
   email: z.string().email(),
@@ -33,14 +33,14 @@ export function SignUp() {
       console.log(data);
       await new Promise((resolve) => setTimeout(resolve, 2000));
 
-      toast.success("Restaurante cadastrado com sucesso!", {
+      toast.success("Cooperativee cadastrado com sucesso!", {
         action: {
           label: "Login",
           onClick: () => navigate('/sign-in'),
         },
       });
     } catch (error) {
-      toast.error("Erro ao cadastrar restaurante");
+      toast.error("Erro ao cadastrar cooperativee");
     }
   }
 
@@ -57,17 +57,17 @@ export function SignUp() {
               Criar conta grátis
             </h1>
             <p className="text-sm text-muted-foreground">
-              Seja um parceiro e comece a vender!
+              Seja um parceiro e comece hoje a ter controle sobre suas folhas de ponto!
             </p>
           </div>
 
           <form onSubmit={handleSubmit(handleSignUp)} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="restaurantName">Nome do estabelecimento</Label>
+              <Label htmlFor="cooperativeName">Nome da cooperativa</Label>
               <Input
-                id="restaurantName"
+                id="cooperativeName"
                 type="text"
-                {...register("restaurantName")}
+                {...register("cooperativeName")}
               />
             </div>
 
