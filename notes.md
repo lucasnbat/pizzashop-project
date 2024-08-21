@@ -49,3 +49,8 @@
 ## Trabalhando com formulários e validações destes
 
 - `npm i react-hook-form zod @hookform/resolvers`
+
+## Toasts com sonner
+
+- `npm i sonner`
+- Só colocar o componente Toaster na raiz (App.tsx) e sair usando;
