@@ -7,7 +7,7 @@
     ],
     "rules": {
         "simple-import-sort/imports": "error",
-        "no-unused-vars": 0,
-        "no-explicit-any": 0
+        "no-unused-vars": false,
+        "no-explicit-any": false
     }
 }
