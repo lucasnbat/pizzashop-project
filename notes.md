@@ -60,4 +60,14 @@
 ## Header
 
 - `npx shadcn-ui@latest add separator`
-- 
+
+## Themes
+
+- Vá no site shadcn/ui;
+- Docs -> Themes -> Vite -> cria um componente e cola o texto do passo 1;
+- Adiciona o <ThemeProvider /> ao redor dos seus componentes no App.tsx;
+- E pronto, tema dark/ white.
+  - storageKey é o nome da chave que vai armazenar o tema no storage do navegador;
+- Depois você vai configurar o themetoggle
+  - Basta ir no passo três e copiar o codigo, criar um componente e inserir o texto lá;
+  - `npx shadcn-ui@latest add dropdown-menu`
