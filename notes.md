@@ -54,3 +54,10 @@
 
 - `npm i sonner`
 - Só colocar o componente Toaster na raiz (App.tsx) e sair usando;
+
+# Trabalhando na estrutura interna do app
+
+## Header
+
+- `npx shadcn-ui@latest add separator`
+- 
