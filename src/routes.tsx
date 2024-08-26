@@ -5,12 +5,16 @@ import { AuthLayout } from "./pages/_layouts/auth";
 import { Dashboard } from "./pages/app/dashboard";
 import { SignIn } from "./pages/auth/sign-in";
 import { SignUp } from "./pages/auth/sign-up";
+import { Punches } from "./pages/app/punches/punches";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <AppLayout />,
-    children: [{ path: "/", element: <Dashboard /> }],
+    children: [
+      { path: "/", element: <Dashboard /> },
+      { path: "/punches", element: <Punches /> },
+    ],
   },
 
   {
