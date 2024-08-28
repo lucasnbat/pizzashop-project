@@ -1,5 +1,5 @@
 import { Edit, Search } from "lucide-react";
-import { TableCell, TableRow } from "../../../components/ui/table";
+import { Table, TableCell, TableRow } from "../../../components/ui/table";
 import { Button } from "../../../components/ui/button";
 import {
   Dialog,
@@ -7,6 +7,15 @@ import {
   DialogTrigger,
 } from "../../../components/ui/dialog";
 import PunchDetails from "./punch-details";
+import { DialogTitle } from "@radix-ui/react-dialog";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../../../components/ui/select";
+import { Textarea } from "../../../components/ui/textarea";
 
 export default function PunchTableRow() {
   return (
@@ -36,10 +45,49 @@ export default function PunchTableRow() {
         <TableCell></TableCell>
         <TableCell></TableCell>
         <TableCell>
-          <Button variant="ghost" size="sm">
-            <Edit className="mr-2 h-3 w-3" />
-            Justificar
-          </Button>
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button variant="ghost" size="sm">
+                <Edit className="mr-2 h-3 w-3" />
+                Justificar
+              </Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogTitle>Nova justificativa</DialogTitle>
+              <form className="flex flex-col items-center gap-4">
+                <Select defaultValue="08h30min">
+                  <SelectTrigger className="h-8 w-full">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="08h30min">08:40</SelectItem>
+                    <SelectItem value="pending">11:45</SelectItem>
+                  </SelectContent>
+                </Select>
+                <Select defaultValue="11h45min">
+                  <SelectTrigger className="h-8 w-full">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="08h30min">08:40</SelectItem>
+                    <SelectItem value="11h45min">11:45</SelectItem>
+                  </SelectContent>
+                </Select>
+                <Select defaultValue="medicalCertificate">
+                  <SelectTrigger className="h-8 w-full">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="medicalCertificate">Atestado</SelectItem>
+                    <SelectItem value="training">Treinamento</SelectItem>
+                    <SelectItem value="vacation">Férias</SelectItem>
+                  </SelectContent>
+                </Select>
+                <Textarea placeholder="Digite aqui..." />
+                <Button type="submit">Enviar justificativa</Button>
+              </form>
+            </DialogContent>
+          </Dialog>
         </TableCell>
         <TableCell>
           <Dialog>
