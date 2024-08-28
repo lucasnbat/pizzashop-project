@@ -2,7 +2,7 @@ import { Edit, Search } from "lucide-react";
 import { TableCell, TableRow } from "../../../components/ui/table";
 import { Button } from "../../../components/ui/button";
 
-export default function PunchTableRow() {
+export function PunchTableRow() {
   return (
     <>
       <TableRow>

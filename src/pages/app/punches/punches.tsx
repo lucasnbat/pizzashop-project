@@ -1,5 +1,4 @@
 import { Helmet } from "react-helmet-async";
-import { Input } from "../../../components/ui/input";
 import {
   Table,
   TableBody,
@@ -8,6 +7,7 @@ import {
   TableRow,
 } from "../../../components/ui/table";
 import PunchTableRow from "./punch-table-row";
+import PunchTableFilter from "./punch-table-filter";
 
 export function Punches() {
   return (
@@ -18,10 +18,7 @@ export function Punches() {
         <h1 className="text-3xl font-bold tracking-tight">Batidas</h1>
       </div>
       <div className="space-y-2.5">
-        <form className="flex items-center gap-2">
-          <span className="text-sm font-semibold">Filtros:</span>
-          <Input placeholder="Filtro" className="h-8 w-[320px]" />
-        </form>
+        <PunchTableFilter />
 
         <div className="rounded-medium border">
           <Table>
