@@ -34,8 +34,52 @@
   - `npm i -D prettier-plugin-tailwindcss`
     - depois cria prettier.config.js
       - cola o module.exports = {plugins: ['prettier-plugin-tailwindcss']}
+<<<<<<< HEAD
 
 # Configurando React-router-dom
 
 - npm install react-router-dom # always need this!
 - npm install localforage match-sorter sort-by # only for this tutorial.
+=======
+- `npm i react-helmet-async`
+  - Usamos isso (configuração no App.tsx) para fazer cabeçalho otimizado;
+- foreground: contrario de background. use isso em componentes que
+  você quer que respondam com cores inversas a cor do fundo;
+- text-muted-foregorund: sempre temos a opção default x foreground
+  das fontes, isso serve para caso vc sempre prefira a cor que da 
+  contraste com o fundo (foreground) ao inves da default;
+- input e label: `npx shadcn-ui@latest add input label`
+- Para mudar as cores conforme o tema desejado, vá:
+  - shadcn/ui > themes > seleciona o tema > copia > substitui a primeira
+    @layerbase do global.css pela layerbase copiada, e pronto!
+
+## Trabalhando com formulários e validações destes
+
+- `npm i react-hook-form zod @hookform/resolvers`
+
+## Toasts com sonner
+
+- `npm i sonner`
+- Só colocar o componente Toaster na raiz (App.tsx) e sair usando;
+
+# Trabalhando na estrutura interna do app
+
+## Header
+
+- `npx shadcn-ui@latest add separator`
+
+## Themes
+
+- Vá no site shadcn/ui;
+- Docs -> Themes -> Vite -> cria um componente e cola o texto do passo 1;
+- Adiciona o <ThemeProvider /> ao redor dos seus componentes no App.tsx;
+- E pronto, tema dark/ white.
+  - storageKey é o nome da chave que vai armazenar o tema no storage do navegador;
+- Depois você vai configurar o themetoggle
+  - Basta ir no passo três e copiar o codigo, criar um componente e inserir o texto lá;
+  - `npx shadcn-ui@latest add dropdown-menu`
+
+## Gráficos
+
+- `npm i recharts`
+>>>>>>> work-branch
