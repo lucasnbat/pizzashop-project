@@ -71,3 +71,7 @@
 - Depois você vai configurar o themetoggle
   - Basta ir no passo três e copiar o codigo, criar um componente e inserir o texto lá;
   - `npx shadcn-ui@latest add dropdown-menu`
+
+## Gráficos
+
+- `npm i recharts`

@@ -3,6 +3,7 @@ import MonthJustifications from "./month-justifications";
 import YearJustifications from "./year-justifications";
 import PendingJustificationsMonthAmount from "./pending-justifcations-month-amount";
 import UnjustifiedInconsistencies from "./unjustified-inconsistencies";
+import JustificationsChart from "./justifications-chart";
 
 export function Dashboard() {
   return (
@@ -16,6 +17,10 @@ export function Dashboard() {
           <MonthJustifications />
           <PendingJustificationsMonthAmount />
           <YearJustifications />
+        </div>
+
+        <div className="">
+          <JustificationsChart />
         </div>
       </div>
     </>
