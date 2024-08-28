@@ -1,16 +1,28 @@
 import { Edit, Search } from "lucide-react";
 import { TableCell, TableRow } from "../../../components/ui/table";
 import { Button } from "../../../components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+} from "../../../components/ui/dialog";
+import PunchDetails from "./punch-details";
 
 export default function PunchTableRow() {
   return (
     <>
       <TableRow>
         <TableCell>
-          <Button variant="outline" size="sm">
-            <Search className="h-3 w-3" />
-            <span className="sr-only">Detalhes da batida</span>
-          </Button>
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button variant="outline" size="sm">
+                <Search className="h-3 w-3" />
+                <span className="sr-only">Detalhes da batida</span>
+              </Button>
+            </DialogTrigger>
+
+            <PunchDetails />
+          </Dialog>
         </TableCell>
         <TableCell>24/07/2024</TableCell>
         <TableCell>TER</TableCell>
