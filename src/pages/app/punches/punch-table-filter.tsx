@@ -9,7 +9,7 @@ import {
   SelectValue,
 } from "../../../components/ui/select";
 
-export function PunchTableFilter() {
+export default function PunchTableFilter() {
   return (
     <form className="flex items-center gap-2">
       <span className="text-sm font-semibold">Filtros:</span>
