@@ -25,7 +25,7 @@ export function Punches() {
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead></TableHead>
+                  <TableHead>Status</TableHead>
                   <TableHead>Data</TableHead>
                   <TableHead>Dia da semana</TableHead>
                   <TableHead>Entrada</TableHead>
@@ -43,7 +43,7 @@ export function Punches() {
                   <TableHead>ExNot</TableHead>
                   <TableHead>Not.</TableHead>
                   <TableHead>Not. Tot.</TableHead>
-                  <TableHead>Status</TableHead>
+                  <TableHead></TableHead>
                   <TableHead></TableHead>
                 </TableRow>
               </TableHeader>

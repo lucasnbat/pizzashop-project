@@ -22,6 +22,7 @@ export default function PunchTableFilter() {
           <SelectItem value="all">Todos</SelectItem>
           <SelectItem value="pending">Pendente</SelectItem>
           <SelectItem value="notJustified">Sem justificativa</SelectItem>
+          <SelectItem value="notJustified">Aprovado</SelectItem>
         </SelectContent>
       </Select>
 
