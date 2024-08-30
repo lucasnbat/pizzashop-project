@@ -20,14 +20,19 @@ import StoreProfileDialog from './ui/store-profile-dialog'
 export function AccountMenu() {
   // renomeando dado para "profile"...
   const { data: profile, isLoading: isLoadingProfile } = useQuery({
-    queryKey: ['profile'], // nome que dá para vc identificar a req e usar a função de cache
+    // nome que dá para vc identificar a req e usar a função de cache
+    queryKey: ['profile'],
     queryFn: getProfile,
+    // staleTime = tempo em que informação fica obsoleta e orienta useQuery
+    // a recarregar (inifinity = nunca fica obsoleto e nunca recarrega)
+    staleTime: Infinity,
   })
 
   const { data: managedRestaurant, isLoading: isLoadingManagedRestaurant } =
     useQuery({
       queryKey: ['managed-restaurant'],
       queryFn: getManagedRestaurant,
+      staleTime: Infinity,
     })
 
   return (
