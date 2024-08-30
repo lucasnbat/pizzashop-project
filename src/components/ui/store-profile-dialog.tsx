@@ -26,7 +26,7 @@ import { Textarea } from './textarea'
 // schema
 const storeProfileSchema = z.object({
   name: z.string().min(1),
-  description: z.string(),
+  description: z.string().nullable(),
 })
 
 // tipo TS criado a partir do schema usando z.infer
@@ -56,25 +56,48 @@ export default function StoreProfileDialog() {
     },
   })
 
+  function updateManagedRestaurantCached({
+    description,
+    name,
+  }: StoreProfileSchema) {
+    // apos atualizar dados, vou pegar os dados atuais dessa queryKey:
+    const cached = queryClient.getQueryData<GetManagedRestaurantResponse>([
+      'managed-restaurant',
+    ])
+
+    if (cached) {
+      queryClient.setQueryData<GetManagedRestaurantResponse>(
+        ['managed-restaurant'],
+        {
+          ...cached, // pega tudo que ja existe (created at, name, etc)
+          name, // atualiza nome
+          description, // e atualiza a descrição. só
+        },
+      )
+    }
+    // retorna informações de contexto antes da atualização para disponibilziar para a onError() usar
+    return { cached }
+  }
+
   // lembre: mutation => create, updates, deletes...
   // useQuery é mais para GETs
   const { mutateAsync: updateProfileFn } = useMutation({
     mutationFn: updateProfile,
-    onSuccess(_, { name, description }) {
-      // apos atualizar dados, vou pegar os dados atuais dessa queryKey:
-      const cached = queryClient.getQueryData<GetManagedRestaurantResponse>([
-        'managed-restaurant',
-      ])
+    // onSuccess(_, { name, description }) { * lógica de setQueryData antiga aqui * },
+    // onMutate ao contrario de onSuccess, dispara ao clicar no "salvar"
+    // mesmo se não der success. Isso é "optimistic UI". Como é uma req simples que
+    // não tem chance de dar muito errado, você joga a resposta renderizada já
+    onMutate({ name, description }) {
+      const { cached } = updateManagedRestaurantCached({ name, description })
 
-      if (cached) {
-        queryClient.setQueryData<GetManagedRestaurantResponse>(
-          ['managed-restaurant'],
-          {
-            ...cached, // pega tudo que ja existe (created at, name, etc)
-            name, // atualiza nome
-            description, // e atualiza a descrição. só
-          },
-        )
+      // armazena os dados anterioes em previousProfile e retorne
+      return { previousProfile: cached }
+    },
+    // se der erro...
+    onError(_, __, context) {
+      // pega o previousProfile e use-o para recuperar as info antigas de perfil
+      if (context?.previousProfile) {
+        updateManagedRestaurantCached(context.previousProfile)
       }
     },
   })
