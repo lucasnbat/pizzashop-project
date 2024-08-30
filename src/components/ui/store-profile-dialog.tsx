@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { z } from 'zod'
@@ -33,6 +33,8 @@ export default function StoreProfileDialog() {
   // estou copiando o useQuery que invoca a função que chama a api
   // apesar de repetir aqui, por ela ter uma queryKey, não haverá 2ª req
   // o react só vai busacr por uma req com essa chave e pegar os dados
+  const queryClient = useQueryClient()
+
   const { data: managedRestaurant } = useQuery({
     queryKey: ['managed-restaurant'],
     queryFn: getManagedRestaurant,
@@ -55,6 +57,18 @@ export default function StoreProfileDialog() {
   // useQuery é mais para GETs
   const { mutateAsync: updateProfileFn } = useMutation({
     mutationFn: updateProfile,
+    onSuccess(_, { name, description }) {
+      // apos atualizar dados, vou pegar os dados atuais dessa queryKey:
+      const cached = queryClient.getQueryData(['managed-restaurant'])
+
+      if (cached) {
+        queryClient.setQueryData(['managed-restaurant'], {
+          ...cached, // pega tudo que ja existe (created at, name, etc)
+          name, // atualiza nome
+          description, // e atualiza a descrição. só
+        })
+      }
+    },
   })
 
   async function handleUpdateProfile(data: StoreProfileSchema) {

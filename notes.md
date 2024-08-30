@@ -8,3 +8,14 @@
     se ela já foi feita, ele usa o cache
 - crie o arquivo react-query instanciando o client (/lib/react-query.ts)
 - `pnpm dlx shadcn-ui@latest add skeleton`: para efeitos de carregamento
+
+## Tipos de estado no react
+
+- Local state (estado dentro de componentes, ex: useState())
+- Global State (estados acessados por varios componentes, ex: Redux)
+- HTTP State (estado dos dados retornadnos das req HTTP, ex: dados que ficam no useQuery())
+  - Fazemos isso com onSucess dentro do useMutation
+  - Essa função onSucess recebe:
+    - data = dados retornados
+    - variables = variaveis usadas (no update, no delete, etc, o que vc mandou na req)
+    - context = outros dados
