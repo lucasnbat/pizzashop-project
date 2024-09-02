@@ -19,3 +19,10 @@
     - data = dados retornados
     - variables = variaveis usadas (no update, no delete, etc, o que vc mandou na req)
     - context = outros dados
+
+## Paginação
+
+- O pageIndex em `pagination.tsx` representa o indice do array
+- Quando estamos em `orders.tsx`, principalmente na função `handlePaginate`,
+  estamos basicamente tratando pageIndex como o numero cru que aparece para
+  o usuário (para o usuário 1, para os computadores, 0);
