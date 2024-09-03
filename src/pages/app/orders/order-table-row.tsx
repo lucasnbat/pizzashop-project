@@ -1,29 +1,33 @@
-import { formatDistanceToNow } from 'date-fns'
-import { ptBR } from 'date-fns/locale'
-import { ArrowRight, Search, X } from 'lucide-react'
+import { formatDistanceToNow } from "date-fns";
+import { ptBR } from "date-fns/locale";
+import { ArrowRight, Search, X } from "lucide-react";
 
-import { Button } from '@/components/ui/button'
-import { Dialog, DialogTrigger } from '@/components/ui/dialog'
-import { OrderStatus } from '@/components/ui/order-status'
-import { TableCell, TableRow } from '@/components/ui/table'
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogTrigger } from "@/components/ui/dialog";
+import { OrderStatus } from "@/components/ui/order-status";
+import { TableCell, TableRow } from "@/components/ui/table";
 
-import { OrderDetails } from './order-details'
+import { OrderDetails } from "./order-details";
+import { useState } from "react";
 
 interface OrderTableRowProps {
   order: {
-    orderId: string
-    createdAt: string
-    status: 'pending' | 'canceled' | 'processing' | 'delivering' | 'delivered'
-    customerName: string
-    total: number
-  }
+    orderId: string;
+    createdAt: string;
+    status: "pending" | "canceled" | "processing" | "delivering" | "delivered";
+    customerName: string;
+    total: number;
+  };
 }
 
 export function OrderTableRow({ order }: OrderTableRowProps) {
+  // estado controlando abertura e fechamento do dialog
+  const [isDetailsOpen, setIsDetailsOpen] = useState(false);
+
   return (
     <TableRow>
       <TableCell>
-        <Dialog>
+        <Dialog open={isDetailsOpen} onOpenChange={setIsDetailsOpen}>
           <DialogTrigger asChild>
             <Button variant="outline" size="xs">
               <Search className="h-3 w-3" />
@@ -31,7 +35,7 @@ export function OrderTableRow({ order }: OrderTableRowProps) {
             </Button>
           </DialogTrigger>
 
-          <OrderDetails />
+          <OrderDetails open={isDetailsOpen} orderId={order.orderId} />
         </Dialog>
       </TableCell>
       <TableCell className="font-mono text-xs font-medium">
@@ -48,9 +52,9 @@ export function OrderTableRow({ order }: OrderTableRowProps) {
       </TableCell>
       <TableCell className="font-medium">{order.customerName}</TableCell>
       <TableCell className="font-medium">
-        {order.total.toLocaleString('pt-BR', {
-          style: 'currency',
-          currency: 'BRL',
+        {(order.total / 100).toLocaleString("pt-BR", {
+          style: "currency",
+          currency: "BRL",
         })}
       </TableCell>
       <TableCell>
@@ -66,5 +70,5 @@ export function OrderTableRow({ order }: OrderTableRowProps) {
         </Button>
       </TableCell>
     </TableRow>
-  )
+  );
 }
