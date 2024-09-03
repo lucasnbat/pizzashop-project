@@ -19,19 +19,23 @@ import { OrderTableRow } from "./order-table-row";
 export function Orders() {
   const [searchParams, setSearchParams] = useSearchParams();
 
+  const orderId = searchParams.get("orderId");
+  const customerName = searchParams.get("customerName");
+  const status = searchParams.get("status");
+
   const pageIndex = z.coerce
     .number()
     .transform((page) => page - 1) // pág. 1 -> index 0
     .parse(searchParams.get("page") ?? "1"); // se não tem pág, seta 1
 
   const { data: result } = useQuery({
-    queryKey: ["orders", pageIndex], //adiciona parametro para mostrar que, mudando o pageIndex, deve refazer a req
-    queryFn: () => getOrders({ pageIndex }),
+    queryKey: ["orders", pageIndex, orderId, customerName, status], //adiciona parametro para mostrar que, mudando o pageIndex, deve refazer a req
+    queryFn: () => getOrders({ pageIndex, customerName, orderId, status: status === 'all' ? null : status }),
   });
 
   function handlePaginate(pageIndex: number) {
     setSearchParams((state) => {
-      state.set("page", (pageIndex + 1).toString()); // pega o numero na url e + 1 
+      state.set("page", (pageIndex + 1).toString()); // pega o numero na url e + 1
 
       return state;
     });

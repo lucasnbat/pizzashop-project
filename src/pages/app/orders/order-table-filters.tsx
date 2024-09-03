@@ -1,42 +1,155 @@
-import { Search, X } from 'lucide-react'
+/**
+ * Sobre as querys, aqui tem o tratamento
+ * para que elas sejam processadas no filtro
+ * e mandadas para a url
+ *
+ * Lá no orders, ele busca essas querys na url
+ * para fazer um get-ordes personalizado
+ *
+ * E lá no `get-orders.ts` ajustamos para que
+ * a consulta no banco receba as querys
+ */
 
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
+import { Search, X } from "lucide-react";
+
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
+} from "@/components/ui/select";
+import { z } from "zod";
+import { Controller, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useSearchParams } from "react-router-dom";
+
+const orderFilterSchema = z.object({
+  orderId: z.string().optional(),
+  customerName: z.string().optional(),
+  status: z.string().optional(),
+});
+
+type OrderFilterSchema = z.infer<typeof orderFilterSchema>;
 
 export function OrderTableFilters() {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  /* Captura querys da url */
+  const orderId = searchParams.get("orderId");
+  const customerName = searchParams.get("customerName");
+  const status = searchParams.get("status");
+
+  const { register, handleSubmit, control, reset} = useForm<OrderFilterSchema>({
+    resolver: zodResolver(orderFilterSchema),
+    defaultValues: {
+      orderId: orderId ?? "",
+      customerName: customerName ?? "",
+      status: status ?? "all",
+    },
+  });
+
+  function handleFilter({ customerName, orderId, status }: OrderFilterSchema) {
+    setSearchParams((state) => {
+      if (orderId) {
+        state.set("orderId", orderId); // se tá pesquisando por isso, bota na url
+      } else {
+        state.delete("orderId"); // se não, tira da url
+      }
+
+      if (customerName) {
+        state.set("customerName", customerName); // se tá pesquisando por isso, bota na url
+      } else {
+        state.delete("customerName"); // se não, tira da url
+      }
+
+      if (status) {
+        state.set("status", status); // se tá pesquisando por isso, bota na url
+      } else {
+        state.delete("status"); // se não, tira da url
+      }
+
+      state.set("page", "1"); // volta para página 1, pois tamanho da lista diminuirá
+
+      return state;
+    });
+  }
+
+  function handleClearFilters() {
+    setSearchParams((state) => {
+      state.delete("orderId");
+      state.delete("customerName");
+      state.delete("status");
+      state.set("page", "1");
+
+      return state;
+    });
+
+    reset({
+      customerName: '',
+      orderId: '',
+      status: '',
+    })
+  }
+
   return (
-    <form className="flex items-center gap-2">
+    <form
+      onSubmit={handleSubmit(handleFilter)}
+      className="flex items-center gap-2"
+    >
       <span className="text-sm font-semibold">Filtros:</span>
-      <Input placeholder="ID do pedido" className="h-8 w-auto" />
-      <Input placeholder="Nome do cliente" className="h-8 w-[320px]" />
-      <Select defaultValue="all">
-        <SelectTrigger className="h-8 w-[180px]">
-          <SelectValue />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="all">Todos status</SelectItem>
-          <SelectItem value="pending">Pendente</SelectItem>
-          <SelectItem value="canceled">Cancelado</SelectItem>
-          <SelectItem value="processing">Em preparo</SelectItem>
-          <SelectItem value="delivering">Em entrega</SelectItem>
-          <SelectItem value="delivered">Entregue</SelectItem>
-        </SelectContent>
-      </Select>
+      <Input
+        placeholder="ID do pedido"
+        className="h-8 w-auto"
+        {...register("orderId")}
+      />
+      <Input
+        placeholder="Nome do cliente"
+        className="h-8 w-[320px]"
+        {...register("customerName")}
+      />
+      <Controller
+        name="status"
+        control={control}
+        render={({ field: { name, onChange, value, disabled } }) => {
+          return (
+            <Select
+              defaultValue="all"
+              name={name}
+              onValueChange={onChange}
+              value={value}
+              disabled={disabled}
+            >
+              <SelectTrigger className="h-8 w-[180px]">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">Todos status</SelectItem>
+                <SelectItem value="pending">Pendente</SelectItem>
+                <SelectItem value="canceled">Cancelado</SelectItem>
+                <SelectItem value="processing">Em preparo</SelectItem>
+                <SelectItem value="delivering">Em entrega</SelectItem>
+                <SelectItem value="delivered">Entregue</SelectItem>
+              </SelectContent>
+            </Select>
+          );
+        }}
+      />
       <Button variant="secondary" size="xs" type="submit">
         <Search className="mr-2 h-4 w-4" />
         Filtrar resultados
       </Button>
-      <Button variant="outline" size="xs" type="button">
+      <Button
+        onClick={handleClearFilters}
+        variant="outline"
+        size="xs"
+        type="button"
+      >
         <X className="mr-2 h-4 w-4" />
         Remover filtros
       </Button>
     </form>
-  )
+  );
 }
