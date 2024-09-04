@@ -28,31 +28,35 @@ export function OrderTableRow({ order }: OrderTableRowProps) {
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
   const queryClient = useQueryClient();
 
+  function updateOrderStatusOnCache(orderId: string, status: OrderStatus) {
+    const ordersListCache = queryClient.getQueriesData<GetOrdersResponse>({
+      //busca queries que começam com orders ("começam", porque as queries de orders tem a chave + parâmetros)
+      queryKey: ["orders"],
+    });
+
+    ordersListCache.forEach(([cacheKey, cacheData]) => {
+      if (!cacheData) {
+        return;
+      }
+
+      queryClient.setQueryData<GetOrdersResponse>(cacheKey, {
+        ...cacheData,
+        orders: cacheData.orders.map((order) => {
+          if (order.orderId === orderId) {
+            return { ...order, status };
+          }
+
+          return order;
+        }),
+      });
+    });
+  }
+
   const { mutateAsync: cancelOrderFn } = useMutation({
     mutationFn: cancelOrder,
     // busca todas as listas em cachê e muda o status do pedido para "canceled" em todas
     onSuccess(_, { orderId }) {
-      const ordersListCache = queryClient.getQueriesData<GetOrdersResponse>({
-        //busca queries que começam com orders ("começam", porque as queries de orders tem a chave + parâmetros)
-        queryKey: ["orders"],
-      });
-
-      ordersListCache.forEach(([cacheKey, cacheData]) => {
-        if (!cacheData) {
-          return;
-        }
-
-        queryClient.setQueryData<GetOrdersResponse>(cacheKey, {
-          ...cacheData,
-          orders: cacheData.orders.map((order) => {
-            if (order.orderId === orderId) {
-              return { ...order, status: "canceled" };
-            }
-
-            return order;
-          }),
-        });
-      });
+      updateOrderStatusOnCache(orderId, "canceled");
     },
   });
 
