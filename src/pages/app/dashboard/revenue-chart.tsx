@@ -37,7 +37,7 @@ export function RevenueChart() {
     }),
   });
 
-  const chartDate = useMemo(() => {
+  const chartData = useMemo(() => {
     return dailyRevenueInPeriod?.map(chartItem => {
       return {
         date: chartItem.date,
@@ -61,9 +61,9 @@ export function RevenueChart() {
         </div>
       </CardHeader>
       <CardContent>
-        {dailyRevenueInPeriod && (
+        {chartData && (
           <ResponsiveContainer width="100%" height={240}>
-            <LineChart data={chartDate} style={{ fontSize: 12 }}>
+            <LineChart data={chartData} style={{ fontSize: 12 }}>
               <XAxis dataKey="date" axisLine={false} tickLine={false} dy={16} />
               <YAxis
                 stroke="#888"

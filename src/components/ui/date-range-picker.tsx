@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/popover";
 
 interface DatePickerWithRangeProps extends React.ComponentProps<"div"> {
-  date: DateRange;
+  date: DateRange | undefined;
   onDateChange: (date: DateRange | undefined) => void;
 }
 
