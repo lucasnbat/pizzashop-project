@@ -11,7 +11,7 @@ export const api = axios.create({
 if (env.VITE_ENABLE_API_DELAY) {
   api.interceptors.request.use(async (config) => {
     // botar tempo de delay
-    await new Promise((resolve) => setTimeout(resolve, 1000))
+    await new Promise((resolve) => setTimeout(resolve, Math.round(Math.random() * 3000)))
 
     // retorna a req com as config noramis
     return config
