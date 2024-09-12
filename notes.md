@@ -56,3 +56,29 @@
 - Usaremos a Testing Library para testar com elementos da DOM;
 - Passos:
   - `pnpm i @testing-library/react @testing-library/dom -D`
+  - `pnpm i @testing-library/jest-dom`
+    - funcionalidades extras para fazer testes na DOM (docs html)
+      - ex: função `toBeVisible()`
+  - Depois de instalar jest-dom, você cria o arquivo test/setup.ts na raiz e escreve:
+    - ```b
+      import '@testing-library/jest-dom/vitest'
+      ```
+    - depois, no `vite.config.ts`:
+      ```b
+       test: {
+        globals: true,
+        setupFiles: ['./test/setup.ts'] //adiciona isso
+      }
+      ```
+- jsdom: implementação de DOM usando JS puro para simular um DOC para dizer se
+  gerou ou não interface. 
+  - Tem um mais recente: happy-dom
+    - ` pnpm i -D  happy-dom`
+    - depois, em `vite.config.ts`:
+      ```b
+        test: {
+          globals: true,
+          setupFiles: ['./test/setup.ts'],
+          environment: 'happy-dom', //adiciona isso
+        }
+      ```

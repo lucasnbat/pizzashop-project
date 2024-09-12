@@ -14,6 +14,8 @@ export default defineConfig({
   },
   test: {
     globals: true,
+    setupFiles: ['./test/setup.ts'],
+    environment: 'happy-dom', //adiciona isso
   }
 } as UserConfig & { // isso serve para reescrever a configuração vite para tipada
   test: InlineConfig
