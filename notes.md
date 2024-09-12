@@ -26,3 +26,33 @@
 - Quando estamos em `orders.tsx`, principalmente na função `handlePaginate`,
   estamos basicamente tratando pageIndex como o numero cru que aparece para
   o usuário (para o usuário 1, para os computadores, 0);
+
+## Vitest
+
+- `pnpm add -D vitest`
+- seu `vite.config.ts` deve ficar assim:
+  ```b
+  // https://vitejs.dev/config/
+  export default defineConfig({
+    plugins: [react()],
+    resolve: {
+      alias: {
+        '@': path.resolve(__dirname, './src'),
+      },
+    },
+    test: {
+      globals: true,
+    }
+  } as UserConfig & { // isso serve para reescrever a configuração vite para tipada
+    test: InlineConfig
+  })
+  ```
+- Adicione ao `tsconfig.json`:
+  ```b
+    "types":["vitest/globals"],
+  ```
+- Essas duas últimas configs destinam-se a tipar o vitest para usarmos as funções
+  dele globalmente, sem necessidade de importar por arquivo;
+- Usaremos a Testing Library para testar com elementos da DOM;
+- Passos:
+  - `pnpm i @testing-library/react @testing-library/dom -D`
