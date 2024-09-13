@@ -4,7 +4,7 @@ import { render } from "@testing-library/react";
 describe("Order Status", () => {
   it("should display the right text when order status is pending", () => {
     const wrapper = render(<OrderStatus status="pending" />);
-    wrapper.debug(); //renderiza o html no terminal
+    // wrapper.debug(); //renderiza o html no terminal
 
     /* find = metodos que procuram elemento, aguardam (são promises) e, se não acham, dao false */
     /* get = procuram elemento e se não existem ja da erro */
@@ -21,7 +21,7 @@ describe("Order Status", () => {
     /* Canceled */
     const wrapper = render(<OrderStatus status="canceled" />);
 
-    wrapper.debug();
+    // wrapper.debug();
 
     const statusText = wrapper.getByText("Cancelado");
     const badgeElement = wrapper.getByTestId("badge");

@@ -88,3 +88,4 @@
         "src", "test"
       ],
     ```
+- `pnpm i -D @testing-library/user-event` : lidar com eventos disparados por user
