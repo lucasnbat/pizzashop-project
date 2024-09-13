@@ -82,3 +82,9 @@
           environment: 'happy-dom', //adiciona isso
         }
       ```
+- ainda em `tsconfig.json`:
+  - ```b
+      "include": [
+        "src", "test"
+      ],
+    ```
