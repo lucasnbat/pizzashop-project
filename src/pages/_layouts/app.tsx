@@ -19,6 +19,8 @@ export function AppLayout() {
 
           if (status === 401 && code === "UNAUTHORIZED") {
             navigate("/sign-in", { replace: true }); // replace = evitar user voltar com seta anterior do navegador
+          } else {
+            throw error;
           }
         }
       },
