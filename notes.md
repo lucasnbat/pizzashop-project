@@ -31,6 +31,7 @@
 
 - `pnpm add -D vitest`
 - seu `vite.config.ts` deve ficar assim:
+  
   ```b
   // https://vitejs.dev/config/
   export default defineConfig({
@@ -48,6 +49,7 @@
   })
   ```
 - Adicione ao `tsconfig.json`:
+  
   ```b
     "types":["vitest/globals"],
   ```
@@ -64,6 +66,7 @@
       import '@testing-library/jest-dom/vitest'
       ```
     - depois, no `vite.config.ts`:
+      
       ```b
        test: {
         globals: true,
@@ -75,6 +78,7 @@
   - Tem um mais recente: happy-dom
     - ` pnpm i -D  happy-dom`
     - depois, em `vite.config.ts`:
+      
       ```b
         test: {
           globals: true,
@@ -89,3 +93,41 @@
       ],
     ```
 - `pnpm i -D @testing-library/user-event` : lidar com eventos disparados por user
+
+## Mocking
+
+* Ex. de ferramentas:    
+  
+  * Mocking Service Working (MSW);
+  
+  * MirageJS;
+
+* Mocking Service Worker atua como um pequeno servidor que vai recebendo e respondendo requisições como o seu backend, simulando ele;
+
+* ```shell
+  pnpm install msw -D
+  ```
+
+* ```shell
+  pnpm msw init public
+  # isso vai fazer public/ser o repositorio do worker. 
+  # se public não existir, crie
+  ```
+
+* `mockServiceWorker.js` é o arquivo do server de mocking;
+  
+  * Ele fica vigiando as reqs, procura se há algum mock arquivo backend para responder e envia a resposta se esse último existe;
+
+* script para configurar no package:
+
+* ```shell
+  "dev:test":"vite --port 50789 --mode test", 
+  
+  # isso permite você rodar a aplicação em modo teste
+  # "mode" é como se fosse uma var .env, mas em vite (vite não usa ts)
+  # selecionamos uma porta que não corra risco de conflito
+  ```
+
+* Configure os arquivos `/api/mocks/index.ts` e adicione a variável ambiente em `.env`
+
+* Lembre também de usar o `enableMSW().then()` ao redor da sua aplicação em `main.tsx`. Mais detalhes no repositório;
