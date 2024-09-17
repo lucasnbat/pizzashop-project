@@ -21,5 +21,11 @@ test('update profile successfully', async ({ page }) => {
 
     expect(toast).toBeVisible()
 
-    await page.waitForTimeout(2000)
+    // fechar o popup
+    await page.getByRole('button', { name: 'Close' }).click()
+
+    await page.waitForTimeout(200)
+
+    expect(page.getByRole('button', { name: 'Rocket Pizza' })).toBeVisible()
+
 })
