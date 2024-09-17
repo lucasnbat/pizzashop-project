@@ -30,6 +30,7 @@
 ## Vitest
 
 - `pnpm add -D vitest`
+
 - seu `vite.config.ts` deve ficar assim:
   
   ```b
@@ -48,23 +49,33 @@
     test: InlineConfig
   })
   ```
+
 - Adicione ao `tsconfig.json`:
   
   ```b
     "types":["vitest/globals"],
   ```
+
 - Essas duas últimas configs destinam-se a tipar o vitest para usarmos as funções
   dele globalmente, sem necessidade de importar por arquivo;
+
 - Usaremos a Testing Library para testar com elementos da DOM;
+
 - Passos:
+  
   - `pnpm i @testing-library/react @testing-library/dom -D`
+  
   - `pnpm i @testing-library/jest-dom`
+    
     - funcionalidades extras para fazer testes na DOM (docs html)
       - ex: função `toBeVisible()`
+  
   - Depois de instalar jest-dom, você cria o arquivo test/setup.ts na raiz e escreve:
+    
     - ```b
       import '@testing-library/jest-dom/vitest'
       ```
+    
     - depois, no `vite.config.ts`:
       
       ```b
@@ -73,10 +84,14 @@
         setupFiles: ['./test/setup.ts'] //adiciona isso
       }
       ```
+
 - jsdom: implementação de DOM usando JS puro para simular um DOC para dizer se
   gerou ou não interface. 
+  
   - Tem um mais recente: happy-dom
+    
     - ` pnpm i -D  happy-dom`
+    
     - depois, em `vite.config.ts`:
       
       ```b
@@ -86,12 +101,15 @@
           environment: 'happy-dom', //adiciona isso
         }
       ```
+
 - ainda em `tsconfig.json`:
+  
   - ```b
       "include": [
         "src", "test"
       ],
     ```
+
 - `pnpm i -D @testing-library/user-event` : lidar com eventos disparados por user
 
 ## Mocking
@@ -131,3 +149,29 @@
 * Configure os arquivos `/api/mocks/index.ts` e adicione a variável ambiente em `.env`
 
 * Lembre também de usar o `enableMSW().then()` ao redor da sua aplicação em `main.tsx`. Mais detalhes no repositório;
+
+## Playwright
+
+* Instalação:
+
+* ```powershell
+  pnpm create playwright
+  ```
+
+* Rodando o test:
+
+* ```powershell
+  pnpm exec playwright test
+  ```
+
+* Mostrar o show-report em `html`:
+
+* ```powershell
+  pnpm exec playwright show-report
+  ```
+
+* Rodando testes em UI Mode:
+
+* ```powershell
+  pnpm exec playwright test --ui
+  ```
