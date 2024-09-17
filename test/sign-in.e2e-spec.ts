@@ -1,5 +1,12 @@
 import { expect, test } from '@playwright/test'
 
+/**
+ * Para não precisar colocar o timeout nos casos de toBeVisible()
+ * você pode só colocar um await antes para que o playwright aguardar o expect
+ * Sempre que houver um evento aguardando algo aparecer em tela, você pode testar
+ * essa solução;
+ */
+
 test('sign in successfully', async ({ page }) => {
     // navega para sign-in e espera tudo de req carregar o conteudo da pag
     await page.goto('/sign-in', { waitUntil: 'networkidle' })
@@ -10,10 +17,10 @@ test('sign in successfully', async ({ page }) => {
 
     const toast = page.getByText('Enviamos um link de autenticação para seu e-mail')
 
-    expect(toast).toBeVisible()
+    await expect(toast).toBeVisible()
 
     // delay para prolongar o teste para aparecer o final (bug do playwritght)
-    await page.waitForTimeout(2000)
+    // await page.waitForTimeout(2000)
 })
 
 test('sign in with wrong credentials is not possible', async ({ page }) => {
@@ -39,3 +46,4 @@ test('navigate to new restaurant page', async ({ page }) => {
 
     expect(page.url()).toContain('/sign-up')
 })
+
