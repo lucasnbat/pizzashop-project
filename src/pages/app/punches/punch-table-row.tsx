@@ -1,5 +1,5 @@
 import { Edit, Search } from "lucide-react";
-import { Table, TableCell, TableRow } from "../../../components/ui/table";
+import { TableCell, TableRow } from "../../../components/ui/table";
 import { Button } from "../../../components/ui/button";
 import {
   Dialog,
